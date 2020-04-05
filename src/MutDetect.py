@@ -2,6 +2,7 @@ from pathlib import Path, PurePath
 import argparse
 import BowtieRun
 
+
 def main():
     progparser = argparse.ArgumentParser(
         description="This program is designed accept the directory location of fastq files"
@@ -9,8 +10,8 @@ def main():
                     "them in bowtie and pass the bam file into a mutation detection "
                     "package in GATK")
 
-    progparser.add_argument("--fastq", help="directory to fastq files")
-    progparser.add_argument("--ref", help="directory to reference")
+    progparser.add_argument("--fastq", help="directory to fastq files, note: This is where the bam file will be kept")
+    progparser.add_argument("--ref", help="directory to prebuilt bowtie2 index")
     progparser.add_argument("--idxname", help="Name of bowtie index")
 
     arguments = progparser.parse_args()
@@ -19,6 +20,7 @@ def main():
     ref = PurePath(arguments.ref)
     index = arguments.idxname
     BowtieRun.bowtieRun(list_fastq, ref, index)
+
 
 if __name__ == "__main__":
     main()
