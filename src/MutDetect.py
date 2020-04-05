@@ -1,4 +1,4 @@
-from pathlib import Path
+from pathlib import Path, PurePath
 import argparse
 import BowtieRun
 
@@ -16,7 +16,7 @@ def main():
     arguments = progparser.parse_args()
     fastq = Path(arguments.fastq).glob("*.fastq.gz")
     list_fastq = list(fastq)
-    ref = Path(arguments.ref)
+    ref = PurePath(arguments.ref)
     index = arguments.idxname
     BowtieRun.bowtieRun(list_fastq, ref, index)
 

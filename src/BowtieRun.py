@@ -1,4 +1,4 @@
-import cmd
+import subprocess
 
 
 def bowtieRun(fastq_list, refpath, index):
@@ -6,5 +6,6 @@ def bowtieRun(fastq_list, refpath, index):
     for item in fastq_list:
         pathstring = pathstring + ',' + str(item)
     fastq_string = pathstring.lstrip(',')
-    termcmd = cmd.Cmd()
-    termcmd.precmd("bowtie2 -h")
+    indexpath = str(refpath.joinpath(index))
+    print(indexpath)
+    #subprocess.call(["bowtie2", "-x", refpath, index, "-U"])
