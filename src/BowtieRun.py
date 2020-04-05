@@ -7,5 +7,4 @@ def bowtieRun(fastq_list, refpath, index):
         pathstring = pathstring + ',' + str(item)
     fastq_string = pathstring.lstrip(',')
     indexpath = str(refpath.joinpath(index))
-    print(indexpath)
-    #subprocess.call(["bowtie2", "-x", refpath, index, "-U"])
+    subprocess.call(["bowtie2", "-x", indexpath, "-U", fastq_string])
