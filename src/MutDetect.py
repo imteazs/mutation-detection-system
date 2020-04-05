@@ -1,6 +1,6 @@
 from pathlib import Path
 import argparse
-
+import BowtieRun
 
 def main():
     progparser = argparse.ArgumentParser(
@@ -11,9 +11,10 @@ def main():
     progparser.add_argument("--fastq", help="directory to fastq files")
     progparser.add_argument("--ref", help="directory to reference")
     arguments = progparser.parse_args()
-    fastq = arguments.fastq
+    fastq = Path(arguments.fastq).glob("*.fastq.gz")
+    list_fastq = list(fastq)
     ref = Path(arguments.ref)
-    print(fastq)
+    BowtieRun.bowtieRun(list_fastq)
 
 if __name__ == "__main__":
     main()
