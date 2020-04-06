@@ -15,11 +15,12 @@ def main():
     progparser.add_argument("--idxname", help="Name of bowtie index")
 
     arguments = progparser.parse_args()
+    output = Path(arguments.fastq)
     fastq = Path(arguments.fastq).glob("*.fastq.gz")
     list_fastq = list(fastq)
     ref = PurePath(arguments.ref)
     index = arguments.idxname
-    BowtieRun.bowtieRun(list_fastq, ref, index)
+    BowtieRun.bowtieRun(list_fastq, ref, index, output)
 
 
 if __name__ == "__main__":
