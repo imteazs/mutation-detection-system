@@ -21,8 +21,8 @@ def main():
     list_fastq = list(fastq)
     ref = PurePath(arguments.ref)
     index = arguments.idxname
-    bamfilepath = BowtieRun.bowtieRun(list_fastq, ref, index, output)
-    GatkPipe.gatkRun(bamfilepath)
+    bamfilepath, fname = BowtieRun.bowtieRun(list_fastq, ref, index, output)
+    GatkPipe.gatkRun(bamfilepath, output, fname)
 
 if __name__ == "__main__":
     main()
