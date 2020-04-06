@@ -1,6 +1,7 @@
 from pathlib import Path, PurePath
 import argparse
 import BowtieRun
+import GatkPipe
 
 
 def main():
@@ -20,8 +21,8 @@ def main():
     list_fastq = list(fastq)
     ref = PurePath(arguments.ref)
     index = arguments.idxname
-    BowtieRun.bowtieRun(list_fastq, ref, index, output)
-
+    bamfilepath = BowtieRun.bowtieRun(list_fastq, ref, index, output)
+    GatkPipe.gatkRun(bamfilepath)
 
 if __name__ == "__main__":
     main()
