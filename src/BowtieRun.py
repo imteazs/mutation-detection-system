@@ -14,7 +14,7 @@ def bowtieRun(fastq_list, refpath, index, output):
     sam_output = str(output.joinpath(fname_sam))
     fname_bam = fname + ".bam"
     bam_output = str(output.joinpath(fname_bam))
-    #subprocess.call(["bowtie2", "-x", indexpath, "-U", fastq_string, "-S", sam_output])
+    subprocess.call(["bowtie2", "-x", indexpath, "-U", fastq_string, "-S", sam_output])
     sam_command_string = "samtools view -Sb " + sam_output + " > " + bam_output
-    #subprocess.call(sam_command_string, shell=True)
+    subprocess.call(sam_command_string, shell=True)
     return bam_output, fname
