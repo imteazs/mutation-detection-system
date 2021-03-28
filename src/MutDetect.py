@@ -18,11 +18,18 @@ def main():
     arguments = progparser.parse_args()
     output = Path(arguments.fastq)
     fastq = Path(arguments.fastq).glob("*.fastq.gz")
-    list_fastq = list(fastq)
+    read1 = Path()
+    read2 = Path()
+    for fastname in fastq:
+        name = fastname.name
+        if '1.fastq.gz' in name:
+            read1 = fastname
+        elif '2.fastq.gz' in name:
+            read2 = fastname
     ref = PurePath(arguments.ref)
     index = arguments.idxname
-    bamfilepath, fname = BowtieRun.bowtieRun(list_fastq, ref, index, output)
-    GatkPipe.gatkRun(bamfilepath, output, fname)
+    bamfilepath, fname = BowtieRun.bowtieRun(read1, read2, ref, index, output)
+    #GatkPipe.gatkRun(bamfilepath, output, fname)
 
 if __name__ == "__main__":
     main()

@@ -2,11 +2,9 @@ import subprocess
 import datetime
 
 
-def bowtieRun(fastq_list, refpath, index, output):
-    pathstring = ''
-    for item in fastq_list:
-        pathstring = pathstring + ',' + str(item)
-    fastq_string = pathstring.lstrip(',')
+def bowtieRun(read1, read2, refpath, index, output):
+    read1 = str(read1)
+    read2 = str(read2)
     indexpath = str(refpath.joinpath(index))
     date = datetime.date.today()
     fname = str(date) + "_output"
@@ -14,7 +12,11 @@ def bowtieRun(fastq_list, refpath, index, output):
     sam_output = str(output.joinpath(fname_sam))
     fname_bam = fname + ".bam"
     bam_output = str(output.joinpath(fname_bam))
-    subprocess.call(["bowtie2", "-x", indexpath, "-U", fastq_string, "-S", sam_output])
+    print('run bowtie2')
+    print("bowtie2", "-x", indexpath, "-1", read1, "-2", read2, "-S", sam_output)
+    #subprocess.call(["bowtie2", "-x", indexpath, "-1", read1, "-2", read2, "-S", sam_output])
+    print('run samtools')
     sam_command_string = "samtools view -Sb " + sam_output + " > " + bam_output
-    subprocess.call(sam_command_string, shell=True)
+    print(sam_command_string)
+    #subprocess.call(sam_command_string, shell=True)
     return bam_output, fname
