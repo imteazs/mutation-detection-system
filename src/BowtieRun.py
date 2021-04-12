@@ -13,10 +13,11 @@ def bowtieRun(read1, read2, refpath, index, output):
     fname_bam = fname + ".bam"
     bam_output = str(output.joinpath(fname_bam))
     print('run bowtie2')
-    print("bowtie2", "-x", indexpath, "-1", read1, "-2", read2, "-S", sam_output)
-    #subprocess.call(["bowtie2", "-x", indexpath, "-1", read1, "-2", read2, "-S", sam_output])
+    bowtie_run = "bowtie2 -x " + indexpath + " -1 " + read1 + " -2 " + read2 + " -S " + sam_output
+    print(bowtie_run)
+    subprocess.call(bowtie_run, shell=True)
     print('run samtools')
     sam_command_string = "samtools view -Sb " + sam_output + " > " + bam_output
     print(sam_command_string)
-    #subprocess.call(sam_command_string, shell=True)
+    subprocess.call(sam_command_string, shell=True)
     return bam_output, fname
