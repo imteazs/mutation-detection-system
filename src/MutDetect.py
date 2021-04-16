@@ -1,6 +1,7 @@
 from pathlib import Path, PurePath
 import argparse
 import BowtieRun
+import PreProcess
 import GatkPipe
 
 
@@ -29,6 +30,7 @@ def main():
     ref = PurePath(arguments.ref)
     index = arguments.idxname
     bamfilepath, fname = BowtieRun.bowtieRun(read1, read2, ref, index, output)
+    bam_dup_recal = PreProcess(bamfilepath, fname)
     #GatkPipe.gatkRun(bamfilepath, output, fname)
 
 if __name__ == "__main__":
